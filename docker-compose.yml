@@ -1,0 +1,14 @@
+version: "1.0"
+services:
+  web:
+    image: zhenai/yapi-docker:1.7.0-beta.0
+    command: /bin/bash -c "[ ! -e /home/yapi/log/init.lock ] && npm run install-server && touch /home/yapi/log/init.lock; npm run start"
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: ./config.json
+        target: /home/yapi/config.json
+      - type: bind
+        source: ./data/yapi
+        target: /home/yapi/log
